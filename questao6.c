@@ -1,3 +1,5 @@
+// Gabriel
+
 #include <stdio.h>
 
 int contarNumRepetidos(int *vetor, int quant, int tam){
