@@ -1,0 +1,12 @@
+Comandos básicos do git para usar:
+
+git pull origin master -> Baixar as atualizações remotas para seu computador (baixar os arquivos alterados do GitHub)
+
+git status -> Ver o estado das atividades no seu repositório
+
+git add . -> Atualizar as atividades e adicioná-las para ser enviadas
+
+git commit -m "mensagem" ->  Criar e dar nome a sua atualização, esse nome vai aparecer no GitHub
+
+git push -u origin master -> Trazer as atualizações para o repositório remoto (enviar para o GitHub)
+

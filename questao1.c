@@ -1,3 +1,5 @@
+//Gabriel
+
 #include<stdio.h>
 
 int fibonacci(int i, int a, int b){
@@ -24,5 +26,5 @@ int main(){
    int i = 0, a = 1, b = 1; 
 
     fibonacci(i,a,b);
-return 0;
+    return 0;
 }
