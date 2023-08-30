@@ -119,7 +119,10 @@ int removerItem(int *lista, int tam){
 }
 
 int main(){
-    int tam = 300, lista[tam], opcao = 1;
+    int tam = 300, opcao = 1;
+    
+    int *lista;
+    lista = (int *) malloc(sizeof(int) * tam);
 
     inicializaLista(lista, tam);
 
