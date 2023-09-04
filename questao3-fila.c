@@ -1,13 +1,8 @@
-/*3) Crie uma lista, uma fila e uma pilha. As estruturas de dados solicitadas devem ter tamanho 10,
-ser estáticas e devem armazenar os seguintes campos: Nome do produto, Quantidade no estoque e
-Preço unitário do produto. Adicionalmente, para cada estrutura implemente as seguintes funções:
-• Inserção
-• Busca
-• Remoção
-• Visualização
-Obs.: Os vetores devem ser alocados dinamicamente.*/
+//Gabriel
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct produto
 {
@@ -16,108 +11,149 @@ struct produto
     float preco;
 };
 
+void inicializafila(struct produto *fila, int tam){
 
-void inicializafila(int *fila, int tam){
     int i;
 
-    for (i = 0; i < tam; i++){
-        fila[i] = -1;
+    for ( i = 0; i < tam; i++)
+    {
+        fila[i].quantidade = -1;
+    }
+
+}
+
+void atualizarfila(struct produto *fila, int refresque){
+    if (fila[refresque].quantidade == -1 && fila[refresque+1].quantidade != -1)
+    {
+        strcpy(fila[refresque].nome, fila[refresque+1].nome);
+        fila[refresque].quantidade = fila[refresque+1].quantidade;
+        fila[refresque].preco = fila[refresque+1].preco;
+        fila[refresque+1].quantidade = -1;
+
+        atualizarfila(fila,refresque+1);
     }
     
 }
 
-int filavazia(int prim, int ult){
-    if (prim == 0 && ult == 0)
+
+
+
+int inserefila(struct produto *fila, int tam, int *ult){
+    if (ult<0 || ult >10)
     {
-        return 1;
+        printf("erro na incerção!!!\n");
     }
     else
     {
-        return 0;
+        printf("insira o nome produto: ");
+        scanf("%s", &fila[*ult].nome);
+        printf("informe a quantidade do produto: ");
+        scanf("%d", &fila[*ult].quantidade);
+        printf("informe o preço do produto: ");
+        scanf("%f", &fila[*ult].preco);
+
+        printf("produto cadastrado com sucesso!!!");
+    }
+}
+
+
+void encontrarproduto(struct produto *fila, int tam){
+
+    char nomeBusca[50];
+    printf("Digite o nome do produto a ser buscado: ");
+    scanf("%s", nomeBusca);
+    
+    for (int i = 0; i < tam; i++) {
+        if (strcmp(nomeBusca, fila[i].nome) == 0) {
+            printf("Produto encontrado:\n");
+            printf("Nome: %s\n", fila[i].nome);
+            printf("Quantidade em estoque: %d\n", fila[i].quantidade);
+            printf("Preço unitário: %.2f\n", fila[i].preco);
+            }
+        }
+
+}
+    
+void removefila(struct produto *fila, int tam, int *prim){
+    if (*prim == 0)
+    {
+        printf("nenhum produto cadastrado para removição");
+    }
+    else
+    {
+        fila[0].quantidade = -1;
+        printf("produto removido :()");
+        atualizarfila(fila, 0);
     }
     
-}
-
-int enfileirar(int *fila, int valor, int ult, int tam){
-    if (ult < 0)
-    {
-        printf("erro entrado na incercao");
-        return 500;
+    
     }
-    fila[ult]=valor;
-    ult++;
-    return ult;
-}
 
-void ajustafila(int*fila, int tam){
-    int i, j, c=0, h=0;
-    for ( i = 0; i < tam; i++)
-    {
-        if (fila[i] = -1)
+
+    void imprimirfila(struct produto *fila, int tam, int prim){
+        int i;
+        if (prim==0)
         {
-            h = -1;
+            printf("nenhum produto encontrado");
         }
-        else if (fila[i] != -1 && h == 1)
+        else
         {
-            j = i;
-            while (fila[j-1] == -1)
+            for (i = 0; i < tam; i++)
             {
-                fila[j-1] = fila[j];
-                fila[j] = -1;
+                if (fila[i].quantidade != -1)
+                {
+                printf("\nNumero: %i", i+1);
+                printf("\nProduto: %s", fila[i].nome);
+                printf("\nEstoque: %i", fila[i].quantidade);
+                printf("\nValor: %.2f\n\n", fila[i].preco);
+                }
+                
             }
             
         }
         
+    }
+
+
+    int main()
+    {
+        int tam = 10, prim = 0; 
+        int aux = 0;
+        struct produto *fila = (struct produto *)malloc(sizeof(struct produto) * tam);
+    inicializafila(fila,tam);
+
+    while(aux!=5) {
+    
+        printf("\nEscolha uma opcao\n");
+        printf("\nInserir produto: 1");
+        printf("\nBuscar produto: 2");
+        printf("\nRemover produto:3");
+        printf("\nVisualizar produtos:4");
+        printf("\nEncerrar programa:5\n");
+
+        scanf("%i", &aux);
+
+        switch(aux) {
+            case 1:
+                inserefila(fila,tam,&prim);
+                break;
+            case 2:
+                encontrarproduto(fila,tam);
+                break;
+            case 3:
+                removefila(fila,tam,&prim);
+                break;
+            case 4:
+                imprimirfila(fila,tam,prim);
+                break;
+            default:
+                printf("\nPor favor, selecione uma opcao possivel.\n");
+                break;
         }
-        
     }
 
-int desenfileirar(int *fila, int prim, int tam){
-    int aux;
-
-    if (prim == 0)
-    {
-        printf("erro encontrado na remocao");
-        return 500;
-    }
-
-    aux=fila[prim];
-    fila[prim]=-1;
-    ajustafila(fila, tam);
-    return aux;
-}
-
-
-
-int main(){
-    int t= 10, ult = 0, prim = 0 , ult2 = 0, prim2 = 0, aux, i;
-
-    int *fila;
-    fila = (int *)malloc(sizeof(int)* t);
-
-    int *fila2;
-    fila2 = (int *)malloc(sizeof(int)* t);
-
-    inicializafila(fila,t);
-    inicializafila(fila2,t);
-
-    ult = enfileirar(fila, 2, ult, t);
-    ult = enfileirar(fila, 4, ult, t);
-    ult = enfileirar(fila, 8, ult, t);
-    ult = enfileirar(fila, 10, ult, t);
-    ult = enfileirar(fila, t, ult, t);
-
-    for (i = 0; i < t; i++)
-    {
-        printf("%d\n", fila[i]);
+    free(fila);
+        return 0;
     }
     
-    printf("\n");
 
-    aux = desenfileirar(fila, prim, t);
-
-    ult = ult-1;
-    return 0;
-}
-
-    
