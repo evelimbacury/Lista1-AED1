@@ -1,39 +1,48 @@
-//Gabriel
+#include <stdio.h>
 
-#include<stdio.h>
-
-
-void imprintmir(int num){
-    printf("%d\n", num);
+void imprimir(int num) {
+    printf("%d ", num);
 }
 
-int fibonacci(int i, int a, int b, int quantidadenumeros){
-    int novoSuc, soma = 0;
-    if (i == quantidadenumeros)
-    {
-        return 1;
+int fibonacci(int i, int a, int b, int quantidadeNumeros) {
+    int novoSuc;
+    if (i == quantidadeNumeros) {
+        return 0;
     }
 
-    imprintmir(a);
+    imprimir(a);
 
     novoSuc = a + b;
     a = b;
     b = novoSuc;
 
-    fibonacci(i+1,a,b, quantidadenumeros);
-    
+    return 1 + fibonacci(i + 1, a, b, quantidadeNumeros);
 }
 
+int somaFibonacci(int quantidadeNumeros) {
+    int soma = 0;
+    int i, a = 1, b = 1;
+    for (i = 0; i < quantidadeNumeros; i++) {
+        soma += a;
+        int novoSuc = a + b;
+        a = b;
+        b = novoSuc;
+    }
+    return soma;
+}
 
+int main() {
+    int i = 0, a = 1, b = 1, soma;
+    int quantidadeNumeros;
 
-int main(){
-   int i = 0, a = 1, b = 1, soma; 
-   int quantidadenumeros;
-   printf("informes quantos numeros queres");
-   scanf("%d", &quantidadenumeros);
+    printf("Informe quantos numeros voce quer na sequencia de Fibonacci: ");
+    scanf("%d", &quantidadeNumeros);
 
-    soma = fibonacci(i, a, b, quantidadenumeros);
+    printf("Sequencia de Fibonacci com %d termos:\n", quantidadeNumeros);
+    soma = fibonacci(i, a, b, quantidadeNumeros);
+    printf("\n");
 
-    printf("\nA soma e %d", soma);
+    printf("A soma dos primeiros %d numeros e: %d\n", quantidadeNumeros, somaFibonacci(quantidadeNumeros));
+    
     return 0;
 }
