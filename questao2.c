@@ -5,8 +5,8 @@
 int fetuccine(int n1, int n2, int cont){
     int resultado;
 
-    if(cont > 10){
-        return 1;
+    if(cont == 10){
+        return somatorio(n1, n2, resultado);;
     }
     
     printf("%d\n", n1);
@@ -15,13 +15,26 @@ int fetuccine(int n1, int n2, int cont){
     }else{
         resultado = n2 + n1;
     }
+
+    somatorio(n1, n2, resultado);
+
     n1 = n2;
     n2 = resultado;
+    
     fetuccine(n1, n2, cont+1);
 }
 
+int somatorio(int n1, int n2, int resultado){
+    int soma = n1 + n2;
+
+    soma += resultado;
+
+    return soma;
+}
+
+
 int main(){
-    int num1, num2, cont = 1, res;
+    int num1, num2, cont = 1;
 
     printf("Série Fetuccine\n");
     printf("Insira o primeiro numero: ");
@@ -30,19 +43,7 @@ int main(){
     scanf("%d", &num2);
 
 
-    fetuccine(num1, num2, cont);
+    int soma = fetuccine(num1, num2, cont);
 
-    // printf("\n");
-    // for(int i = 1; i <= 10; i++){
-
-    //     printf("%d\n", num1);
-    //     if(i % 2 == 0){
-    //         res = num2 - num1;
-    //     }else{
-    //         res = num2 + num1;
-    //     }
-    //     num1 = num2;
-    //     num2 = res;
-    // }
-
+    printf("\nA soma e %d\n", soma);
 }
