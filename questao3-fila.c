@@ -39,7 +39,7 @@ void atualizarfila(struct produto *fila, int refresque){
 
 
 int inserefila(struct produto *fila, int tam, int *ult){
-    if (ult<0 || ult >10)
+    if (ult < 0 || ult > 10)
     {
         printf("erro na incerção!!!\n");
     }
